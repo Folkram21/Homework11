@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <locale.h>
+#include <math.h>
 
 // структура
 struct Car {
@@ -11,6 +12,20 @@ struct Car {
     int year;
     char* reg_date;
 };
+
+int get_reg_date(struct Car car) {
+    int digit, date = 0;
+
+    int size = 10;
+
+    for (int i = 6; i < size; i++) {
+        digit = (int)car.reg_date[i] - 48;
+
+        date += digit * pow(10, size - (i+1));
+    }
+
+    return date;
+}
 
 int main() {
     setlocale(LC_CTYPE, "RUS");
@@ -36,4 +51,14 @@ int main() {
     for (int i = 0; i < size; i++) {
         printf("|%3d|%15s|%17s|%15s|%18d|%20s|\n", i+1, cars[i].marka, cars[i].maker, cars[i].type, cars[i].year, cars[i].reg_date);
     }
+
+    printf("\n\n-----------Список всех машин (марки “Toyota” и зарегистрированных до 2007 - го года)-----------\n");
+    printf("| № |     Марка     |  Производитель  |      Тип      | Год производства |  Дата регистрации  |\n");
+    printf("-----------------------------------------------------------------------------------------------\n");
+    for (int i = 0; i < size; i++) {
+        if (cars[i].maker == "Toyota" && get_reg_date(cars[i]) < 2007)
+            printf("|%3d|%15s|%17s|%15s|%18d|%20s|\n", i + 1, cars[i].marka, cars[i].maker, cars[i].type, cars[i].year, cars[i].reg_date);
+    }
+
+    return 0;
 }
