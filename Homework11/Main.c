@@ -5,13 +5,35 @@
 
 // структура
 struct Car {
-    char marka[50];
-    char maker[50];
-    char type[30];
+    char* marka;
+    char* maker;
+    char* type;
     int year;
-    char reg_date[20];
+    char* reg_date;
 };
 
 int main() {
     setlocale(LC_CTYPE, "RUS");
+
+    struct Car cars[10] = {
+        {"Camry", "Toyota", "Седан", 2005, "12.05.2006"},
+        {"Corolla", "Toyota", "Седан", 2010, "15.08.2011"},
+        {"RAV4", "Toyota", "Внедорожник", 2003, "01.11.2004"},
+        {"Land Cruiser", "Toyota", "Внедорожник", 2015, "20.02.2016"},
+        {"X5", "BMW", "Внедорожник", 2004, "20.01.2005"},
+        {"Focus", "Ford", "Хэтчбек", 2006, "10.10.2006"},
+        {"Solaris", "Hyundai","Седан", 2012, "05.03.2013"},
+        {"Polo", "Volkswagen","Хэтчбек", 2008, "18.07.2009"},
+        {"Yaris", "Toyota", "Хэтчбек", 2001, "25.12.2002"},
+        {"Logan", "Renault","Седан", 2007, "14.09.2007"}
+    };
+
+    int size = sizeof(cars) / sizeof(cars[0]);
+
+    printf("-----------------------------------------Список всех машин-------------------------------------\n");
+    printf("| № |     Марка     |  Производитель  |      Тип      | Год производства |  Дата регистрации  |\n");
+    printf("-----------------------------------------------------------------------------------------------\n");
+    for (int i = 0; i < size; i++) {
+        printf("|%3d|%15s|%17s|%15s|%18d|%20s|\n", i+1, cars[i].marka, cars[i].maker, cars[i].type, cars[i].year, cars[i].reg_date);
+    }
 }
